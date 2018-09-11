@@ -8,6 +8,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure.WebJobs.Configuration;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Azure.WebJobs.Host.Executors;
 using Microsoft.Azure.WebJobs.Host.Indexers;
@@ -154,18 +155,6 @@ namespace Microsoft.Azure.WebJobs
 
             string msg = "Job host stopped";
             _logger?.LogInformation(msg);
-        }
-
-        /// <summary>Runs the host and blocks the current thread while the host remains running.</summary>
-        public void RunAndBlock()
-        {
-            Start();
-
-            // Wait for someone to begin stopping (_shutdownWatcher, Stop, or Dispose).
-            _stoppingTokenSource.Token.WaitHandle.WaitOne();
-
-            // Don't return until all executing functions have completed.
-            Stop();
         }
 
         /// <summary>Calls a job method.</summary>

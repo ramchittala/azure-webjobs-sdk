@@ -64,7 +64,7 @@ namespace Microsoft.Extensions.Hosting
                 CloudStorageAccount account = config.GetStorageAccount();
                 if (account == null)
                 {
-                    return new InMemorySingletonManager();
+                    return new InMemoryDistributedLockManager();
                 }
 
                 var blobClient = account.CreateCloudBlobClient();

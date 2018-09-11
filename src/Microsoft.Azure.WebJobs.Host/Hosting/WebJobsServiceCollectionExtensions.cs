@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using System;
+using Microsoft.Azure.WebJobs.Configuration;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Azure.WebJobs.Host.Bindings;
 using Microsoft.Azure.WebJobs.Host.Configuration;
@@ -56,7 +57,7 @@ namespace Microsoft.Azure.WebJobs
             services.TryAddSingleton<IFunctionExecutor, FunctionExecutor>();
             services.TryAddSingleton<IJobHostContextFactory, JobHostContextFactory>();
 
-            services.TryAddSingleton<ILoadBalancerQueue, InMemoryLoadBalancerQueue>();
+            services.TryAddSingleton<IQueueFactory, InMemoryQueueFactory>();
 
             // Anybody can add IBindingProvider via DI. 
             // Consume the whole list via a CompositeBindingProvider
@@ -73,7 +74,7 @@ namespace Microsoft.Azure.WebJobs
             services.TryAddSingleton<IFunctionOutputLogger, ConsoleFunctionOutputLogger>();
             services.TryAddSingleton<IFunctionInstanceLogger, FunctionInstanceLogger>();
             services.TryAddSingleton<IHostInstanceLogger, NullHostInstanceLogger>();
-            services.TryAddSingleton<IDistributedLockManager, InMemorySingletonManager>();
+            services.TryAddSingleton<IDistributedLockManager, InMemoryDistributedLockManager>();
 
             // $$$ Can we remove these completely? 
             services.TryAddSingleton<DefaultTriggerBindingFactory>();
